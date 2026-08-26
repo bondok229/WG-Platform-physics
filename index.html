@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title> Wageh Al-Hussiny Platform </title>
+    <title>Wageh Al-Hussiny Platform</title>
     
     <!-- إعدادات تطبيق الويب للشاشة الرئيسية للأيفون -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,26 +14,28 @@
     <link rel="apple-touch-icon" href="logo_512x512.png">
 
     <style>
-        /* تثبيت الخلفية السوداء بالكامل لكل الصفحة */
+        /* تثبيت الخلفية السوداء بالكامل لكل الصفحة وتجنب أي فراغات */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             background-color: #000613;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* حاوية لإعطاء مساحة تحكم تامة للـ Head داخل الويب أبليكيشن وبدون قص */
-       .frame-wrapper {
+        /* حاوية متجاوبة بالكامل تاخذ مقاس الشاشة ديفولت بمرونة */
+        .frame-wrapper {
             width: 100%;
             height: 100%;
             background-color: #000613;
         }
 
         #appFrame {
-            width: 100%;
-            height: 100%;
+           width: 100%;
+            /* ضبط المساحة بدقة لتظهر منطقة الـ Head مرتاحة في الويب أبليكيشن */
+            height: calc(110% +25px);
+           
             border: none;
             display: none;
             background-color: #000613;
@@ -76,7 +78,7 @@
         <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
 
-    <!-- الإطار الخاص بعرض المنصة للأيفون -->
+    <!-- الإطار المتجاوب الخاص بعرض المنصة للأيفون -->
     <div class="frame-wrapper" id="frameWrapper" style="display:none;">
         <iframe id="appFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
     </div>
@@ -86,7 +88,7 @@
         var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         if (isIos) {
-            document.getElementById('frameWrapper').style.display = 'flex';
+            document.getElementById('frameWrapper').style.display = 'block';
             var frame = document.getElementById('appFrame');
             frame.style.display = 'block';
             frame.src = realUrl;
