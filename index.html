@@ -2,94 +2,56 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    
-    <!-- إعدادات العرض للشاشات الكاملة وبدون حواف -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- عنوان الموقع -->
-    <title>Wageh Al-Hussiny Platform</title>
-    
-    <!-- إعدادات وضع تطبيق الويب (Web App) للأيفون (iOS) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="منصة وجيه">
-    
-    <!-- ربط اللوجو الخاص بك (المأخوذ من الصورة التي أرسلتها) ليظهر كأيقونة عند الإضافة للشاشة الرئيسية -->
-    <link rel="apple-touch-icon" href="https://replicate.delivery/xpbkg/c0q8e7N6tq0dMRlS5G71zL4O9pG828f68Qe45A7658S9F1JSA/output.png">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منصة وجيه الحسيني</title>
     <style>
-        html, body {
+        html, body, iframe {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #000613; /* الخلفية السوداء */
-            overflow: hidden; /* منع التمرير */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border: none;
+            overflow: hidden;
+            background-color: #000613;
+        }
+        .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-
-        .container {
+            height: 100vh;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
             text-align: center;
             padding: 20px;
-            max-width: 90%;
-            background: rgba(0, 6, 19, 0.9);
-            border-radius: 15px;
         }
-
-        /* تصميم اللوجو داخل صفحة الويب كتحذير */
-        .warning-logo {
-            max-width: 200px; /* حجم مناسب للوجو */
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 50%; /* الحفاظ على الشكل الدائري */
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
-        }
-
-        h3 {
-            color: #ffaa00; /* اللون الأصفر المميز */
-            margin: 0 0 10px 0;
-            font-size: 20px;
-        }
-
-        p {
-            color: #cccccc;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* إخفاء المحتوى في البداية لحين التحقق من الجهاز */
-        #blocking-screen {
-            display: none;
-        }
+        h3 { color: #ffaa00; margin-bottom: 10px; }
+        p { color: #cccccc; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <!-- شاشة الحظر (تظهر للأندرويد والكمبيوتر) -->
-    <div class="container" id="blocking-screen">
-        <!-- هذا هو اللوجو الخاص بك الذي سيظهر كتحذير -->
-        <img src="https://replicate.delivery/xpbkg/c0q8e7N6tq0dMRlS5G71zL4O9pG828f68Qe45A7658S9F1JSA/output.png" alt="Wageh El-Husseiny Platform" class="warning-logo">
-        
-        <h3>عذراً، المنصة غير مدعومة</h3>
-        <p>هذه المنصة مخصصة حصرياً لأجهزة الأيفون (iOS) فقط، ولا تعمل على الأندرويد أو أجهزة الكمبيوتر. يرجى الدخول من هاتف أيفون.</p>
+    <!-- محتوى الحظر (للأندرويد والكمبيوتر) -->
+    <div class="container" id="box" style="display:none;">
+        <h3>منصة وجيه الحسيني</h3>
+        <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
+
+    <!-- إطار خفي يعرض المنصة دون كشف الرابط الحقيقي للأيفون -->
+    <iframe id="secretFrame" style="display:none;" src="" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
 
     <script>
         var realUrl = "https://wajih-al-husseini.tal5es.com";
-        
-        // دقيق جداً: فحص أجهزة الأيفون والأيباد فقط
         var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         if (isIos) {
-            // لو أيفون: توجيه فوري وبشكل نظيف (بدون حواف)
-            window.location.replace(realUrl);
+            // لو أيفون: يتم عرض المنصة داخل الإطار الخفي، ويظل شريط البحث ثابتاً على رابطك أنت
+            var iframe = document.getElementById('secretFrame');
+            iframe.src = realUrl;
+            iframe.style.display = 'block';
         } else {
-            // لو أندرويد أو كمبيوتر: إظهار رسالة الحظر مع اللوجو
-            document.getElementById('blocking-screen').style.display = 'flex';
+            // لو أندرويد أو كمبيوتر: تظهر رسالة الحظر
+            document.getElementById('box').style.display = 'flex';
         }
     </script>
 </body>
