@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>منصة وجيه الحسيني</title>
+    <title>Wageh Al-Hussiny platform</title>
+    
+    <!-- إعدادات تطبيق الويب وتفعيل الأيقونة والاسم عند الإضافة للشاشة الرئيسية -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="منصة وجيه">
+    
+    <!-- رابط اللوجو الخاص بك لكي يظهر عند إضافته للشاشة الرئيسية -->
+    <link rel="apple-touch-icon" href="https://replicate.delivery/xpbkg/c0q8e7N6tq0dMRlS5G71zL4O9pG828f68Qe45A7658S9F1JSA/output.png">
+
     <style>
         html, body {
             margin: 0;
@@ -30,14 +39,22 @@
             text-align: center;
             padding: 20px;
         }
+        .warning-logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+        }
         h3 { color: #ffaa00; margin-bottom: 10px; }
-        p { color: #cccccc; font-size: 14px; }
+        p { color: #cccccc; font-size: 14px; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <!-- رسالة الحظر للأندرويد والكمبيوتر -->
+    <!-- رسالة الحظر للأندرويد والكمبيوتر مع اللوجو -->
     <div class="container" id="box" style="display:none;">
+        <img src="https://replicate.delivery/xpbkg/c0q8e7N6tq0dMRlS5G71zL4O9pG828f68Qe45A7658S9F1JSA/output.png" alt="Logo" class="warning-logo">
         <h3>منصة وجيه الحسيني</h3>
         <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
@@ -52,13 +69,7 @@
         if (isIos) {
             var frame = document.getElementById('appFrame');
             frame.style.display = 'block';
-            
-            // خداع متصفح الأيفون ليعمل كـ Sandbox مستقل تماماً مثل جوجل سايتس
-            try {
-                frame.src = realUrl;
-            } catch (e) {
-                window.location.href = realUrl;
-            }
+            frame.src = realUrl;
         } else {
             document.getElementById('box').style.display = 'flex';
         }
