@@ -2,17 +2,22 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>منصة وجيه الحسيني</title>
     <style>
-        html, body, iframe {
+        html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            overflow: hidden;
             background-color: #000613;
+            overflow: hidden;
+        }
+        #appFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
         }
         .container {
             display: flex;
@@ -31,26 +36,30 @@
 </head>
 <body>
 
-    <!-- محتوى الحظر (للأندرويد والكمبيوتر) -->
+    <!-- رسالة الحظر للأندرويد والكمبيوتر -->
     <div class="container" id="box" style="display:none;">
         <h3>منصة وجيه الحسيني</h3>
         <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
 
-    <!-- إطار خفي يعرض المنصة دون كشف الرابط الحقيقي للأيفون -->
-    <iframe id="secretFrame" style="display:none;" src="" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    <!-- الإطار المعزول لإخفاء الرابط الحقيقي تماماً -->
+    <iframe id="appFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
 
     <script>
         var realUrl = "https://wajih-al-husseini.tal5es.com";
         var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         if (isIos) {
-            // لو أيفون: يتم عرض المنصة داخل الإطار الخفي، ويظل شريط البحث ثابتاً على رابطك أنت
-            var iframe = document.getElementById('secretFrame');
-            iframe.src = realUrl;
-            iframe.style.display = 'block';
+            var frame = document.getElementById('appFrame');
+            frame.style.display = 'block';
+            
+            // خداع متصفح الأيفون ليعمل كـ Sandbox مستقل تماماً مثل جوجل سايتس
+            try {
+                frame.src = realUrl;
+            } catch (e) {
+                window.location.href = realUrl;
+            }
         } else {
-            // لو أندرويد أو كمبيوتر: تظهر رسالة الحظر
             document.getElementById('box').style.display = 'flex';
         }
     </script>
