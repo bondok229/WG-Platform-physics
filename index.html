@@ -2,10 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <!-- إعدادات العرض للشاشات الكاملة وبدون حواف مع دعم كامل للـ Notch -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Wageh Al-Hussiny Platform</title>
     
-    <!-- إعدادات تطبيق الويب وتفعيل الأيقونة والاسم عند الإضافة للشاشة الرئيسية -->
+    <!-- إعدادات تطبيق الويب وتفعيل الأيقونة -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Wageh Al-Hussiny Platform">
@@ -19,15 +20,30 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #000613;
-            overflow: hidden;
+            background-color: #000613; /* الخلفية */
+            overflow: hidden; /* منع التمرير */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        /* تنسيق الإطار الجديد: علاج مشاكل المقاسات والأبعاد على الأيفون */
         #appFrame {
             width: 100%;
             height: 100%;
             border: none;
             display: none;
+            /* هذه الخواص تساعد في ضبط تمرير iOS داخل الإطار */
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
+            /* توسيط المحتوى داخل الإطار */
+            position: absolute;
+            top: 0;
+            left: 0;
         }
+
+        /* تنسيق شاشة الحظر (لغير الأيفون) */
         .container {
             display: flex;
             flex-direction: column;
@@ -35,42 +51,70 @@
             align-items: center;
             height: 100vh;
             color: #ffffff;
-            font-family: Tahoma, sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
+            box-sizing: border-box;
+            width: 100%;
         }
+
         .warning-logo {
-            max-width: 150px;
+            max-width: 160px;
             height: auto;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.3);
+            margin-bottom: 30px;
+            border-radius: 25px;
+            box-shadow: 0 6px 20px rgba(255, 170, 0, 0.25);
         }
-        h3 { color: #ffaa00; margin-bottom: 10px; }
-        p { color: #cccccc; font-size: 14px; line-height: 1.6; }
+
+        h3 {
+            color: #ffaa00;
+            margin: 0 0 15px 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #cccccc;
+            font-size: 16px;
+            line-height: 1.8;
+            margin: 0;
+            max-width: 400px;
+        }
+
+        #box { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- رسالة الحظر للأندرويد والكمبيوتر مع اللوجو المحلي -->
-    <div class="container" id="box" style="display:none;">
+    <!-- رسالة الحظر للأندرويد والكمبيوتر -->
+    <div class="container" id="box">
         <img src="logo_512x512.png" alt="Logo" class="warning-logo">
         <h3>منصة وجيه الحسيني</h3>
         <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
 
-    <!-- الإطار المعزول لإخفاء الرابط الحقيقي تماماً -->
-    <iframe id="appFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+    <!-- الإطار المعزول (الأيفون) بتنسيق الشاشة الكاملة الجديد -->
+    <iframe id="appFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-top-navigation-by-user-activation"></iframe>
 
     <script>
         var realUrl = "https://wajih-al-husseini.tal5es.com";
         var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         if (isIos) {
+            // للأيفون: عرض الإطار بملء الشاشة
             var frame = document.getElementById('appFrame');
             frame.style.display = 'block';
+            
+            // محاولة إجبار الإطار على ملء الشاشة تماماً
+            frame.style.width = '1px';
+            frame.style.minWidth = '100%';
+            frame.style.width = '100%';
+            frame.style.height = '1px';
+            frame.style.minHeight = '100%';
+            frame.style.height = '100%';
+            
             frame.src = realUrl;
         } else {
+            // لغير الأيفون: عرض رسالة الحظر
             document.getElementById('box').style.display = 'flex';
         }
     </script>
