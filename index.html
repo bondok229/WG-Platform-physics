@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Wageh Al-Hussiny Platform</title>
     
-    <!-- إعدادات تطبيق الويب وتفعيل الأيقونة والشاشة الكاملة للأيفون -->
+    <!-- إعدادات تطبيق الويب للشاشة الرئيسية للأيفون -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Wageh Al-Hussiny Platform">
     
-    <!-- ربط اللوجو المحلي الخاص بك -->
+    <!-- الأيقونة المحلية -->
     <link rel="apple-touch-icon" href="logo_512x512.png">
 
     <style>
@@ -20,20 +20,12 @@
             width: 100%;
             height: 100%;
             background-color: #000613;
-            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #appFrame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* رسالة الحظر للأندرويد والكمبيوتر */
         .container {
             display: flex;
             flex-direction: column;
@@ -45,7 +37,6 @@
             padding: 40px;
             box-sizing: border-box;
             width: 100%;
-            font-family: Tahoma, sans-serif;
         }
 
         .warning-logo {
@@ -54,17 +45,19 @@
             margin-bottom: 30px;
             border-radius: 25px;
             box-shadow: 0 6px 20px rgba(255, 170, 0, 0.25);
+            border: 3px solid rgba(255, 255, 255, 0.1);
         }
 
         h3 {
             color: #ffaa00;
             margin: 0 0 15px 0;
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: bold;
         }
 
         p {
             color: #cccccc;
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.8;
             margin: 0;
             max-width: 400px;
@@ -75,38 +68,22 @@
 </head>
 <body>
 
-    <!-- رسالة الحظر لغير الأيفون -->
+    <!-- رسالة الحظر للأندرويد والكمبيوتر -->
     <div class="container" id="box">
         <img src="logo_512x512.png" alt="Logo" class="warning-logo">
         <h3>منصة وجيه الحسيني</h3>
         <p>عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.</p>
     </div>
 
-    <!-- الإطار المعزول -->
-    <iframe id="appFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation"></iframe>
-
     <script>
         var realUrl = "https://wajih-al-husseini.tal5es.com";
         var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
         if (isIos) {
-            var frame = document.getElementById('appFrame');
-            frame.style.display = 'block';
-            frame.src = realUrl;
-
-            // إخفاء الهيدر أو الشريط العلوي للمنصة تلقائياً بمجرد تحميل الصفحة لجعل الشكل احترافي تماماً
-            frame.onload = function() {
-                try {
-                    var iframeDoc = frame.contentDocument || frame.contentWindow.document;
-                    // إضافة سطر برمجى داخل الصفحة المزورة لإخفاء أي شريط علوي مزعج إن وجد
-                    var style = iframeDoc.createElement('style');
-                    style.innerHTML = 'header, .navbar, nav { display: none !important; }';
-                    iframeDoc.head.appendChild(style);
-                } catch(e) {
-                    // حماية أمنية من المتصفح في حال اختلاف النطاق، سيتم تخطيها بأمان
-                }
-            };
+            // توجيه فوري ونظيف للأيفون لضمان عرض المنصة بأبعادها الكاملة والصحيحة 100%
+            window.location.replace(realUrl);
         } else {
+            // إظهار رسالة الحظر لغير الأيفون
             document.getElementById('box').style.display = 'flex';
         }
     </script>
