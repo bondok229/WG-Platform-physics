@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000613;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #ffffff;
+            font-family: Tahoma, sans-serif;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h3 { color: #ffaa00; margin-bottom: 10px; font-size: 22px; }
+        p { color: #cccccc; font-size: 15px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="container" id="box" style="display:none;">
+        <h3>منصة وجيه الحسيني</h3>
+        <p id="msg">عذراً، هذه المنصة مخصصة لأجهزة الأيفون (iOS) فقط.</p>
+    </div>
+
+    <script>
+        var realUrl = "https://wajih-al-husseini.tal5es.com";
+        var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+        if (isIos) {
+            window.location.replace(realUrl);
+        } else {
+            document.getElementById('box').style.display = 'flex';
+            document.getElementById('msg').innerHTML = "عذراً، هذه المنصة مخصصة لهواتف الأيفون (iOS) فقط ولا تعمل على الأندرويد أو أجهزة الكمبيوتر.";
+        }
+    </script>
+</body>
+</html>
