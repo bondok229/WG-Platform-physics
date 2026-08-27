@@ -32,14 +32,15 @@
             -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً على الأيفون */
         }
 
-        #appFrame {
+       #appFrame {
             width: 100%;
-            /* ندي الإطار طول أكبر بحاجة بسيطة (مثلاً 40 بكسل) عشان يظهر كل اللي تحت وما يتقصش */
-            height: calc(100% + 40px);
+            /* قللنا الزيادة من 40px إلى 20px عشان نشيل الفراغ الباقي تحت تماماً */
+            height: calc(100% + 20px);
             border: none;
             display: none;
             background-color: #000613;
         }
+        
 
         /* رسالة الحظر للأندرويد والكمبيوتر */
         .container {
