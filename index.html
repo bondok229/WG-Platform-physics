@@ -14,34 +14,39 @@
     <link rel="apple-touch-icon" href="logo_512x512.png">
 
     <style>
-        /* تثبيت الخلفية السوداء بالكامل لكل الصفحة وتجنب أي فراغات */
-        html, body {
+      html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #000613;
+            overflow: hidden !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .frame-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000613;
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000613;
-            overflow: hidden;
         }
 
-       .frame-wrapper {
-            width: 100%;
-            height: 100%;
-            background-color: #000613;
-            overflow-y: auto; /* السماح بالتمرير العمودي للمحتوى الطويل */
-            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً على الأيفون */
-        }
-
-       #appFrame {
-            width: 100%;
-            /* قللنا الزيادة من 40px إلى 20px عشان نشيل الفراغ الباقي تحت تماماً */
-            height: calc(100% + 20px);
+        #appFrame {
+            width: 100vw;
+            height: 100vh;
+            /* بنكبر الإطار نسبة بسيطة ونحركه للسنتر عشان يغطي أي هَوامش نهائياً */
+            transform: scale(1.02);
+            transform-origin: center center;
             border: none;
             display: none;
             background-color: #000613;
         }
-        
-
         /* رسالة الحظر للأندرويد والكمبيوتر */
         .container {
             display: flex;
