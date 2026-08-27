@@ -24,17 +24,18 @@
             overflow: hidden;
         }
 
-        /* حاوية متجاوبة بالكامل تاخذ مقاس الشاشة ديفولت بمرونة */
-        .frame-wrapper {
+       .frame-wrapper {
             width: 100%;
             height: 100%;
             background-color: #000613;
+            overflow-y: auto; /* السماح بالتمرير العمودي للمحتوى الطويل */
+            -webkit-overflow-scrolling: touch; /* تمرير ناعم جداً على الأيفون */
         }
 
-       
-          #appFrame {
+        #appFrame {
             width: 100%;
-            height: 100%;
+            /* ندي الإطار طول أكبر بحاجة بسيطة (مثلاً 40 بكسل) عشان يظهر كل اللي تحت وما يتقصش */
+            height: calc(100% + 40px);
             border: none;
             display: none;
             background-color: #000613;
